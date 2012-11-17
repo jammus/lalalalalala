@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+    font: 400 18px/1.6 'Arimo', Verdana, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font: 400 120px/1.6 'Pacifico', Georgia, serif;
+}
+
+.form-row {
+    margin: 0 0 18px 0;
+}
+
+input, button {
+    font: 400 18px/1.6 'Arimo', Verdana, Helvetica, sans-serif;
+}
+
+input[type="text"] {
+    width: 720px;
+    border-radius: 4px;
+    font-size: 48px;
+    -moz-box-shadow: inset 1px 1px 6px rgba(0,0,0,0.4);
+    box-shadow: inset 1px 1px 6px rgba(0,0,0,0.4);
+    border: none;
+    padding: 6px 12px;
+}
+
+button {
+    border-radius: 2px;
+    padding: 12px 18px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
