@@ -2,8 +2,9 @@ requirejs.config({
     urlArgs: 'ts=' + (new Date).getTime()
 });
 
-requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths'], function(App, config, LastFM, $, Mouths) {
+requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths', 'player'], function(App, config, LastFM, $, Mouths, Player) {
     var app = new App(),
+        player = new Player(app),
         lastFm = new LastFM(config),
         $error = $('#error');
 
@@ -36,6 +37,10 @@ requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths'], function(App, config,
 
     app.subscribe('artist.search_error', function () {
         $error.show();
+    });
+
+    app.subscribe('top_tracks.top_track_found', function(track) {
+        player.play(track.artist.name, track.name);
     });
 
     $('#lalalalalala').submit(function (e) {
