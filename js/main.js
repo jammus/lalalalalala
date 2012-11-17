@@ -41,6 +41,8 @@ requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths', 'player'], function(Ap
 
     app.subscribe('top_tracks.top_track_found', function(track) {
         player.play(track.artist.name, track.name);
+        $.getJSON('/lyrics.php?q_track=' + track.name + '&q_artist=' + track.artist.name, function (data) {
+        });
     });
 
     $('#lalalalalala').submit(function (e) {
