@@ -11,6 +11,15 @@ requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths'], function(App, config,
         $error.hide();
         lastFm.artist.getInfo({ artist: name }, {
             success: function (data) {
+                app.publish('top_tracks.search_start', { artist: name });
+                lastFm.artist.getTopTracks({ artist: name }, {
+                    success: function (data) {
+                        app.publish('top_tracks.top_track_found', data.toptracks.track[0]);
+                    },
+                    error: function () {
+                        app.publish('top_tracks.search_error');
+                    }
+                });
                 var image = data.artist.image[data.artist.image.length - 1]['#text'];
                 app.publish('artist.image_found', image);
             },
