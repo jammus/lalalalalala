@@ -2,7 +2,7 @@ requirejs.config({
     urlArgs: 'ts=' + (new Date).getTime()
 });
 
-requirejs(['app', 'Config', 'lastfm', 'jQuery'], function(App, config, LastFM, $) {
+requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths'], function(App, config, LastFM, $, Mouths) {
     var app = new App(),
         lastFm = new LastFM(config),
         $error = $('#error');
@@ -18,6 +18,11 @@ requirejs(['app', 'Config', 'lastfm', 'jQuery'], function(App, config, LastFM, $
                 app.publish('artist.search_error');
             }
         });
+    });
+
+    app.subscribe('artist.image_found', function(imageUrl) {
+        $('.q').blur();
+        var mouths = new Mouths(imageUrl);
     });
 
     app.subscribe('artist.search_error', function () {
