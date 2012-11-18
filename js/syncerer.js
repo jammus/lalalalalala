@@ -7,7 +7,6 @@ define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
     var Syncerer = function (app, data, $el) {
 
         var syllables = [],
-            t, // (ms)
             counter = new TextStatistics();
 
         // It's not a hackday without a hack
@@ -18,20 +17,28 @@ define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
                 stop = convertDfxpTimestamp($p.attr('end')),
                 length = stop - start,
                 words = $p.text().split(/ /),
-                n = words.length,
-                wordBoundaryLength = length / ((2 * n) - 1);
+                syllableCount = words.length - 1, // Each space is a syllable...
+                t = start;
 
-            for (i = 0; i < n; ++i) {
-                var boundaryStart = start + (((2 * i) - 1) * wordBoundaryLength),
-                    numSyllables = counter.syllableCount(words[i]),
-                    syllableLength = wordBoundaryLength / numSyllables;
+            for (i = 0; i < words.length; ++i) {
+                syllableCount += counter.syllableCount(words[i]);
+            }
 
-                for (j = 0; j < numSyllables; ++j) {
+            var syllableLength = length / syllableCount;
+
+            for (i = 0; i < words.length; ++i) {
+                for (j = 0; j < counter.syllableCount(words[i]); ++j) {
                     syllables.push({
-                        start: boundaryStart + (j * syllableLength),
+                        start: t,
                         length: syllableLength
                     });
+                    t += syllableLength;
                 }
+                syllables.push({
+                    start: t,
+                    length: syllableLength
+                });
+                t += syllableLength;
             }
         });
 
