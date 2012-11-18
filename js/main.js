@@ -2,7 +2,7 @@ requirejs.config({
     urlArgs: 'ts=' + (new Date).getTime()
 });
 
-requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths', 'player', 'syncerer', 'Mousetrap'], function(App, config, LastFM, $, Mouths, Player, Syncerer, mousetrap) {
+requirejs(['app', 'Config', 'lastfm', 'jquery', 'mouths', 'player', 'syncerer', 'Mousetrap'], function(App, config, LastFM, $, Mouths, Player, Syncerer, mousetrap) {
     var app = new App(),
         player = new Player(app),
         lastFm = new LastFM(config),
