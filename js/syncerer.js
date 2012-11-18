@@ -20,6 +20,8 @@ define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
                 syllableCount = words.length - 1, // Each space is a syllable...
                 t = start;
 
+            $p.data('start', start).data('stop', stop);
+
             for (i = 0; i < words.length; ++i) {
                 syllableCount += counter.syllableCount(words[i]);
             }
@@ -44,7 +46,8 @@ define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
 
         this.start = function () {
             var currentSyllable = 0,
-                eventFired = false;
+                eventFired = false,
+                currentLyric = 0;
             app.subscribe('track.timeupdate', function (time) {
                 if (typeof syllables[currentSyllable] == 'undefined') {
                     return;
@@ -58,6 +61,16 @@ define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
                     ++currentSyllable;
                     eventFired = false;
                 }
+
+                // Display lyrics
+                var $lyric = $('p:eq(' + currentLyric + ')', $el);
+                if (time >= $lyric.data('start') && time < $lyric.data('stop')) {
+                    $lyric.addClass('current-lyric');
+                }
+                if (time > $lyric.data('stop')) {
+                    $lyric.removeClass('current-lyric');
+                    ++currentLyric;
+                } 
             });
         };
 
