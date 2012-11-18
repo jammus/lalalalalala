@@ -1,11 +1,17 @@
 define(['jquery'], function($) {
     var Player = function(app) {
         var that = this;
+        var playing = false;
 
         that.play = function(artist, trackName) {
             var track = window.tomahkAPI.Track(trackName, artist, {
+                disabledResolvers: [ "Youtube", "Exfm" ],
                 handlers: {
-                    onplayable: function() {
+                    onresolved: function() {
+                        if (playing) {
+                            return;
+                        }
+                        playing = true;
                         track.play();
                     },
                     ontimeupdate: function(timeupdate) {
