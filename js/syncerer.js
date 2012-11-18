@@ -1,4 +1,4 @@
-define(['jQuery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextStatistics) {
+define(['jquery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextStatistics) {
 
     /**
      * @param object data A response from the Musixmatch API with (hopefully)
