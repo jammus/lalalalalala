@@ -1,5 +1,5 @@
-define(['Mousetrap'], function(mousetrap) {
-    var Mouths = function(imageUrl) {
+define(function() {
+    var Mouths = function(app, imageUrl) {
         var mouths = [ ];
         $(function() {
             var canvas = document.getElementById('image');
@@ -26,8 +26,7 @@ define(['Mousetrap'], function(mousetrap) {
             };
             image.src = 'loadimage.php?image=' + imageUrl;
 
-            mousetrap.bind('space', function(evt) {
-                evt.preventDefault();
+            app.subscribe('word.start', function(length) {
                 for (var i = 0; i < mouths.length; i++) {
                     var mouth = mouths[i];
                     ctx.fillStyle = "rgba(0, 0, 0, 1)";
@@ -39,7 +38,7 @@ define(['Mousetrap'], function(mousetrap) {
                     );
                     ctx.putImageData(mouth.image, mouth.coords.x, mouth.coords.y + (mouth.coords.height / 3));
                 }
-                resetTimeout = setTimeout(resetImage, 150);
+                resetTimeout = setTimeout(resetImage, length);
             });
 
             function resetImage() {

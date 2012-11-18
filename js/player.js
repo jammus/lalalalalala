@@ -9,7 +9,7 @@ define(['jquery'], function($) {
                         track.play();
                     },
                     ontimeupdate: function(timeupdate) {
-                        app.publish('track.timeupdate', timeupdate.currentTime);
+                        app.publish('track.timeupdate', timeupdate.currentTime * 1000);
                     }
                 }
             });
