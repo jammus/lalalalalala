@@ -29,18 +29,15 @@ define(['jquery', 'Mousetrap', 'textstatistics'], function ($, mousetrap, TextSt
             var syllableLength = length / syllableCount;
 
             for (i = 0; i < words.length; ++i) {
-                for (j = 0; j < counter.syllableCount(words[i]); ++j) {
-                    syllables.push({
-                        start: t,
-                        length: syllableLength
-                    });
+                if (i > 0 && i < words.length - 1) {
                     t += syllableLength;
                 }
+                var length = (counter.syllableCount(words[i]) * syllableLength) * 0.8;
                 syllables.push({
                     start: t,
-                    length: syllableLength
+                    length: length
                 });
-                t += syllableLength;
+                t += length;
             }
         });
 
