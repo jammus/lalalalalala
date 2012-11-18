@@ -42,7 +42,7 @@ requirejs(['app', 'Config', 'lastfm', 'jQuery', 'mouths', 'player', 'syncerer', 
 
     app.subscribe('top_tracks.top_track_found', function(track) {
         player.play(track.artist.name, track.name);
-        $.getJSON('/lyrics.php?q_track=' + track.name + '&q_artist=' + track.artist.name, function (data) {
+        $.getJSON('lyrics.php?q_track=' + track.name + '&q_artist=' + track.artist.name, function (data) {
             syncerer = new Syncerer(app, data, $('#lyrics'));
             syncerer.start();
         });
